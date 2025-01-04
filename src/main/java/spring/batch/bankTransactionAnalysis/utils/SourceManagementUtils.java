@@ -6,10 +6,8 @@ import spring.batch.bankTransactionAnalysis.pojo.BankTransaction;
 public class SourceManagementUtils {
 
     public static void initializeEmptyDatabase(JdbcTemplate jdbcTemplate) {
-        // Drop table if exist
-        jdbcTemplate.update("drop table if exists bank_transaction_yearly");
         // Create the table
-        jdbcTemplate.update("create table bank_transaction_yearly (" +
+        jdbcTemplate.update("create table if not exists bank_transaction_yearly (" +
                 "id serial primary key," +
                 "month int not null," +
                 "day int not null," +
@@ -18,6 +16,8 @@ public class SourceManagementUtils {
                 "amount numeric(10,2) not null," +
                 "merchant varchar(36) not null" +
                 ")");
+        // truncate table if already exist
+        jdbcTemplate.update("truncate table bank_transaction_yearly");
     }
     public static void insertBankTransaction(BankTransaction transaction, JdbcTemplate jdbcTemplate) {
         jdbcTemplate.update("insert into bank_transaction_yearly (month, day, hour, minute, amount, merchant) " +

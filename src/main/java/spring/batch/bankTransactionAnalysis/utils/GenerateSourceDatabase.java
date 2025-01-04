@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import spring.batch.bankTransactionAnalysis.config.DataSourceConfig;
 import spring.batch.bankTransactionAnalysis.pojo.BankTransaction;
 
 import javax.sql.DataSource;
@@ -39,8 +40,8 @@ public class GenerateSourceDatabase {
     // Main method re-creating table and generating records in the database
     public static void main(String[] args) {
         // We are re-using Spring Context to get connection properties same way as in Spring Batch
-        ApplicationContext context = new AnnotationConfigApplicationContext(DataSource.class);
-        JdbcTemplate jdbcTemplate = new JdbcTemplate(context.getBean(DataSource.class));
+        ApplicationContext context = new AnnotationConfigApplicationContext(DataSourceConfig.class);
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(context.getBean("postgresqlDataSource", DataSource.class));
 
         // Initialize the schema
         SourceManagementUtils.initializeEmptyDatabase(jdbcTemplate);

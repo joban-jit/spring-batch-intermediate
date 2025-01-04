@@ -9,6 +9,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.support.JdbcTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 
@@ -17,6 +18,7 @@ import javax.sql.DataSource;
 @Slf4j
 @Configuration
 @EnableConfigurationProperties
+@PropertySource("classpath:application.properties")
 public class DataSourceConfig {
 
 

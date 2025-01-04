@@ -58,7 +58,8 @@ public class BankTransferConfig extends DefaultBatchConfiguration {
                 .from(fillBalanceStep)
                 .on(NEGATIVE).to(aggregateByDayStep)
                 .from(fillBalanceStep)
-                .on("*").end()
+                .on("*")
+                .end()
                 .end()
                 .build();
     }
